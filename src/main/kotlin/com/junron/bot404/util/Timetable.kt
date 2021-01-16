@@ -20,7 +20,7 @@ object Timetable {
         val subject =
             if ("chinese" in _subject.toLowerCase()) "MT" else _subject
         return timetable
-            .filter { it.subject == subject }
+            .filter { subject in it.subjects }
             .map { it.getNextLesson(from) }
             .run {
                 if (_from != null) {

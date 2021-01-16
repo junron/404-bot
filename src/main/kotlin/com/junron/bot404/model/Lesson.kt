@@ -2,17 +2,18 @@ package com.junron.bot404.model
 
 import kotlinx.serialization.Serializable
 import java.util.*
+import kotlin.math.floor
 
 @Serializable
 data class Lesson(
-    val subject: String,
+    val subjects: List<String>,
     val day: String,
-    val timeStart: String,
-    val timeEnd: String
+    val timeStart: Int,
+    val timeEnd: Int
 ) {
-    private val endHour = timeEnd.padStart(4, '0').substring(0, 2).toInt()
-    private val endMinute = timeEnd.padStart(4, '0').substring(2).toInt()
-    private val days = listOf("mon", "tue", "wed", "thu", "fri")
+    private val endHour = floor(timeEnd / 100.0).toInt()
+    private val endMinute = timeEnd % 100
+    private val days = listOf("Mon", "Tue", "Wed", "Thu", "Fri")
     fun getNextLesson(from: Date = Date()): Date {
         val calendar = Calendar.getInstance(TimeZone.getDefault())
             .apply {
